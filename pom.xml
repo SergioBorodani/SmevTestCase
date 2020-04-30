@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.5.RELEASE</version>
+    </parent>
+    <groupId>ru.curs.sergio</groupId>
+    <artifactId>endpoints</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>EnpointsSet</name>
+    <description>Smev Response Emulator</description>
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- properties -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <!-- dependencies -->
+        <junit-platform.version>1.3.1</junit-platform.version>
+        <junit.version>5.3.1</junit.version>
+        <spring.boot.version>2.0.6.RELEASE</spring.boot.version>
+        <spring.boot.starter.celesta.version>2.1.6</spring.boot.starter.celesta.version>
+        <celesta.version>7.2.4</celesta.version>
+        <!-- plugins -->
+        <maven-compiller-plugin.version>3.7.0</maven-compiller-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <jdbc.driver.firebird.version>4.0.0-beta-1</jdbc.driver.firebird.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>ru.curs</groupId>
+            <artifactId>spring-boot-starter-celesta</artifactId>
+            <version>${spring.boot.starter.celesta.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>ru.curs</groupId>
+                    <artifactId>celesta-system-services</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>ru.curs</groupId>
+            <artifactId>celesta-system-services</artifactId>
+            <version>${celesta.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.firebirdsql.jdbc</groupId>
+            <artifactId>jaybird-jdk18</artifactId>
+            <version>${jdbc.driver.firebird.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>digt</groupId>
+            <artifactId>trusted-java</artifactId>
+            <version>2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>ru.curs</groupId>
+            <artifactId>celesta-unit</artifactId>
+            <version>${celesta.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.santuario</groupId>
+            <artifactId>xmlsec</artifactId>
+            <version>2.1.4</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiller-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>ru.curs</groupId>
+                <artifactId>celesta-maven-plugin</artifactId>
+                <version>${celesta.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>gen-cursors</goal>
+                            <goal>gen-score-resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <argLine>-Xms3512m -Xmx3512m</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
