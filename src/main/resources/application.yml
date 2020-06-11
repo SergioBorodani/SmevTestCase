@@ -13,7 +13,7 @@ smev.test.case:
   url: http://smev3-n0.test.gosuslugi.ru:7500/smev/v1.1/ws?wsdl
   sg2Url: http://localhost:1235/api/curssmev
   store: CurrentUser/Containers
-  alias: REGISTRY\\ISMO_19-20-lipetsk
+  alias: REGISTRY\\ISMO_20-21-lipetsk
   storePassword: 12345678
   testInteraction: true
   xmlServiceDir: C:/Users/Sergey/IdeaProjects/smev/Service
